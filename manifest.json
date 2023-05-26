@@ -1,0 +1,24 @@
+{
+    "manifest_version": 3,
+    "name": "Change Color of BarraSuperiorPrincipal",
+    "version": "1.0",
+    "description": "Change the color of the element with id barraSuperiorPrincipal to red on pjesg.tjro.jus.br",
+    "permissions": ["activeTab", "scripting"],
+    "action": {
+        "default_popup": "popup.html",
+        "icons": {
+            "16": "images/icon.png",
+            "48": "images/icon.png",
+            "128": "images/icon.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://pjesg.tjro.jus.br/*", "https://pjesg.tjro.jus.br/*"],
+            "js": ["content.js"]
+        }
+    ]
+}
