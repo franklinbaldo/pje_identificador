@@ -1,24 +1,24 @@
 {
-    "manifest_version": 3,
-    "name": "Change Color of BarraSuperiorPrincipal",
-    "version": "1.0",
-    "description": "Change the color of the element with id barraSuperiorPrincipal to red on pjesg.tjro.jus.br",
-    "permissions": ["activeTab", "scripting"],
-    "action": {
-        "default_popup": "popup.html",
-        "icons": {
-            "16": "images/icon.png",
-            "48": "images/icon.png",
-            "128": "images/icon.png"
-        }
-    },
-    "background": {
-        "service_worker": "background.js"
-    },
-    "content_scripts": [
-        {
-            "matches": ["http://pjesg.tjro.jus.br/*", "https://pjesg.tjro.jus.br/*"],
-            "js": ["content.js"]
-        }
-    ]
+  "manifest_version": 3,
+  "name": "PJe Identificador",
+  "version": "1.0",
+  "description": "PJe Identificador é uma extensão para o Chrome que ajuda você a diferenciar os sites do PJe de forma rápida e fácil. Com essa extensão, você pode ver o domínio do site do PJe em uma pequena barra no topo da página, com uma cor única para cada domínio. Assim, você pode navegar pelos sites do PJe sem se confundir ou perder tempo.",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "icons": {
+      "16": "images/icon.png",
+      "48": "images/icon.png",
+      "128": "images/icon.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+        "matches": ["http://*.jus.br/*", "https://*.jus.br/*"],
+      "js": ["content.js"]
+    }
+  ]
 }
