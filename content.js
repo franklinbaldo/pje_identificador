@@ -1,52 +1,69 @@
-const stringToHash = (s) => {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) {
-    h = s.charCodeAt(i) + ((h << 5) - h);
+// Function to hash a string
+const stringToHash = (str) => {
+  let hash = 0;
+  for(let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
-  return h;
+  return hash;
 };
-const intToHex = (i) =>
-  "#" +
-  (
-    ((i >> 24) & 0xff).toString(16) +
-    ((i >> 16) & 0xff).toString(16) +
-    ((i >> 8) & 0xff).toString(16) +
-    (i & 0xff).toString(16)
+
+// Function to convert an integer to a hexadecimal color code
+const intToHex = (int) => {
+  return "#" + (
+      (int >> 24 & 255).toString(16) +
+      (int >> 16 & 255).toString(16) +
+      (int >> 8 & 255).toString(16) +
+      (255 & int).toString(16)
   ).slice(0, 6);
-const createBar = () => {
-  const d = window.location.hostname,
-    h = stringToHash(d),
-    c = intToHex(h),
-    b = document.createElement("div");
-  b.id = "pje-bar";
-  b.style.backgroundColor = c;
-  b.style.height = "20px";
-  b.style.width = "100%";
-  b.style.position = "fixed";
-  b.style.top = "0";
-  b.style.left = "0";
-  b.style.zIndex = "9999";
-  const t = document.createElement("span");
-  t.style.color = "white";
-  t.style.fontFamily = "Arial, sans-serif";
-  t.style.fontSize = "14px";
-  t.style.fontWeight = "bold";
-  t.style.textAlign = "center";
-  t.style.display = "block";
-  t.style.lineHeight = "20px";
-  t.textContent = d;
-  b.appendChild(t);
-  document.body.style.paddingTop = "20px";
-  document.body.appendChild(b);
 };
-const adjustFixedNavbar = () => {
-  const n = document.getElementsByClassName("navbar-fixed-top");
-  for (let i = 0; i < n.length; i++) {
-    let s = window.getComputedStyle(n[i]);
-    if (s.position === "fixed" && s.top === "0px") {
-      n[i].style.top = "20px";
-    }
-  }
+
+// Function to create a floating element
+const createFloatingElement = () => {
+  // Get the hostname
+  const hostname = window.location.hostname;
+  
+  // Hash the hostname
+  const hash = stringToHash(hostname);
+  
+  // Convert the hash to a color
+  const color = intToHex(hash);
+  
+  // Create a new div element
+  const floatingElement = document.createElement("div");
+
+  // Set the id and styles of the div
+  floatingElement.id = "pje-floating-element";
+  floatingElement.style.backgroundColor = color;
+  floatingElement.style.height = "50px";
+  floatingElement.style.width = "200px";
+  floatingElement.style.position = "fixed";
+  floatingElement.style.bottom = "20px";
+  floatingElement.style.left = "20px";
+  floatingElement.style.zIndex = "9999";
+  floatingElement.style.padding = "10px";
+  floatingElement.style.borderRadius = "10px";
+  floatingElement.style.boxShadow = "0px 0px 10px 2px rgba(0,0,0,0.1)";
+
+  // Create a new span element
+  const spanElement = document.createElement("span");
+
+  // Set the styles and content of the span
+  spanElement.style.color = "white";
+  spanElement.style.fontFamily = "Arial, sans-serif";
+  spanElement.style.fontSize = "14px";
+  spanElement.style.fontWeight = "bold";
+  spanElement.style.textAlign = "center";
+  spanElement.style.display = "block";
+  spanElement.style.lineHeight = "30px";
+  spanElement.style.textShadow = "2px 2px 2px rgba(0,0,0,0.5)";
+  spanElement.textContent = hostname;
+
+  // Add the span to the div
+  floatingElement.appendChild(spanElement);
+
+  // Add the div to the body
+  document.body.appendChild(floatingElement);
 };
-createBar();
-adjustFixedNavbar();
+
+// Call the function to create the floating element
+createFloatingElement();
