@@ -1,69 +1,59 @@
-// Function to hash a string
+// Hash function, take a string as input, return a hash integer
 const stringToHash = (str) => {
   let hash = 0;
   for(let i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
   return hash;
-};
+}
 
-// Function to convert an integer to a hexadecimal color code
-const intToHex = (int) => {
-  return "#" + (
-      (int >> 24 & 255).toString(16) +
-      (int >> 16 & 255).toString(16) +
-      (int >> 8 & 255).toString(16) +
-      (255 & int).toString(16)
-  ).slice(0, 6);
-};
+// Convert a hash integer to a hex color code
+const hashToColor = (hash) => {
+  return "#" + ((hash >> 24 & 255).toString(16) + 
+                (hash >> 16 & 255).toString(16) + 
+                (hash >> 8 & 255).toString(16) + 
+                (255 & hash).toString(16)).slice(0,6);
+}
 
-// Function to create a floating element
+// Main function that creates and adds a floating element on the page
 const createFloatingElement = () => {
-  // Get the hostname
+  // Get the current hostname
   const hostname = window.location.hostname;
-  
-  // Hash the hostname
-  const hash = stringToHash(hostname);
-  
-  // Convert the hash to a color
-  const color = intToHex(hash);
-  
-  // Create a new div element
-  const floatingElement = document.createElement("div");
 
-  // Set the id and styles of the div
-  floatingElement.id = "pje-floating-element";
-  floatingElement.style.backgroundColor = color;
-  floatingElement.style.height = "50px";
-  floatingElement.style.width = "200px";
-  floatingElement.style.position = "fixed";
-  floatingElement.style.bottom = "20px";
-  floatingElement.style.left = "20px";
-  floatingElement.style.zIndex = "9999";
-  floatingElement.style.padding = "10px";
-  floatingElement.style.borderRadius = "10px";
-  floatingElement.style.boxShadow = "0px 0px 10px 2px rgba(0,0,0,0.1)";
+  // Convert the hostname to a hash, and then convert the hash to a color
+  const hash = stringToHash(hostname);
+  const color = hashToColor(hash);
+
+  // Create a new div element
+  const div = document.createElement("div");
+  div.id = "pje-floating-element";
+  div.style.backgroundColor = color;
+  div.style.height = "50px";
+  div.style.width = "200px";
+  div.style.position = "fixed";
+  div.style.bottom = "20px";
+  div.style.left = "20px";
+  div.style.zIndex = "9999";
+  div.style.padding = "10px";
+  div.style.borderRadius = "10px";
+  div.style.boxShadow = "0px 0px 10px 2px rgba(0,0,0,0.1)";
 
   // Create a new span element
-  const spanElement = document.createElement("span");
+  const span = document.createElement("span");
+  span.style.color = "white";
+  span.style.fontFamily = "Arial, sans-serif";
+  span.style.fontSize = "14px";
+  span.style.fontWeight = "bold";
+  span.style.textAlign = "center";
+  span.style.display = "block";
+  span.style.lineHeight = "30px";
+  span.style.textShadow = "2px 2px 2px rgba(0,0,0,0.5)";
+  span.textContent = hostname;
 
-  // Set the styles and content of the span
-  spanElement.style.color = "white";
-  spanElement.style.fontFamily = "Arial, sans-serif";
-  spanElement.style.fontSize = "14px";
-  spanElement.style.fontWeight = "bold";
-  spanElement.style.textAlign = "center";
-  spanElement.style.display = "block";
-  spanElement.style.lineHeight = "30px";
-  spanElement.style.textShadow = "2px 2px 2px rgba(0,0,0,0.5)";
-  spanElement.textContent = hostname;
-
-  // Add the span to the div
-  floatingElement.appendChild(spanElement);
-
-  // Add the div to the body
-  document.body.appendChild(floatingElement);
+  // Append the span to the div, and the div to the body
+  div.appendChild(span);
+  document.body.appendChild(div);
 };
 
-// Call the function to create the floating element
+// Call the main function
 createFloatingElement();
