@@ -1,64 +1,52 @@
-// Função para gerar um hash a partir de uma string
-const stringToHash = (string) => {
-    let hash = 0;
-    for (let i = 0; i < string.length; i++) {
-        hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return hash;
+const stringToHash = (s) => {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = s.charCodeAt(i) + ((h << 5) - h);
+  }
+  return h;
 };
-
-// Função para converter um número em uma cor hexadecimal
-const intToHex = (int) => {
-    let hex = ((int >> 24) & 0xFF).toString(16) +
-        ((int >> 16) & 0xFF).toString(16) +
-        ((int >> 8) & 0xFF).toString(16) +
-        (int & 0xFF).toString(16);
-    return '#' + hex.slice(0, 6);
-};
-
-// Função para criar a barra no topo do site
+const intToHex = (i) =>
+  "#" +
+  (
+    ((i >> 24) & 0xff).toString(16) +
+    ((i >> 16) & 0xff).toString(16) +
+    ((i >> 8) & 0xff).toString(16) +
+    (i & 0xff).toString(16)
+  ).slice(0, 6);
 const createBar = () => {
-    // Pegar o domínio do PJe
-    const domain = window.location.hostname;
-    // Gerar um hash a partir do domínio
-    const hash = stringToHash(domain);
-    // Converter o hash em uma cor hexadecimal
-    const color = intToHex(hash);
-    // Criar um elemento div para a barra
-    const bar = document.createElement('div');
-    // Atribuir um id para a barra
-    bar.id = 'pje-bar';
-    // Atribuir um estilo para a barra
-    bar.style.backgroundColor = color;
-    bar.style.height = '20px';
-    bar.style.width = '100%';
-    bar.style.position = 'fixed';
-    bar.style.top = '0';
-    bar.style.left = '0';
-    bar.style.zIndex = '9999';
-    // Criar um elemento span para o texto do domínio
-    const text = document.createElement('span');
-    // Atribuir um estilo para o texto
-    text.style.color = 'white';
-    text.style.fontFamily = 'Arial, sans-serif';
-    text.style.fontSize = '14px';
-    text.style.fontWeight = 'bold';
-    text.style.textAlign = 'center';
-    text.style.display = 'block';
-    text.style.lineHeight = '20px';
-    // Colocar o domínio como conteúdo do texto
-    text.textContent = domain;
-    // Anexar o texto à barra
-    bar.appendChild(text);
-
-    // Pegar o corpo do documento
-    const body = document.body;
-    // Atribuir um estilo para o corpo do documento
-    body.style.marginTop = '20px'; // Mesmo valor da altura da barra
-
-
-    // Anexar a barra ao corpo do documento
-    document.body.appendChild(bar);
+  const d = window.location.hostname,
+    h = stringToHash(d),
+    c = intToHex(h),
+    b = document.createElement("div");
+  b.id = "pje-bar";
+  b.style.backgroundColor = c;
+  b.style.height = "20px";
+  b.style.width = "100%";
+  b.style.position = "fixed";
+  b.style.top = "0";
+  b.style.left = "0";
+  b.style.zIndex = "9999";
+  const t = document.createElement("span");
+  t.style.color = "white";
+  t.style.fontFamily = "Arial, sans-serif";
+  t.style.fontSize = "14px";
+  t.style.fontWeight = "bold";
+  t.style.textAlign = "center";
+  t.style.display = "block";
+  t.style.lineHeight = "20px";
+  t.textContent = d;
+  b.appendChild(t);
+  document.body.style.paddingTop = "20px";
+  document.body.appendChild(b);
 };
-
+const adjustFixedNavbar = () => {
+  const n = document.getElementsByClassName("navbar-fixed-top");
+  for (let i = 0; i < n.length; i++) {
+    let s = window.getComputedStyle(n[i]);
+    if (s.position === "fixed" && s.top === "0px") {
+      n[i].style.top = "20px";
+    }
+  }
+};
 createBar();
+adjustFixedNavbar();

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PJe Identificador",
   "version": "1.0",
-  "description": "PJe Identificador é uma extensão para o Chrome que ajuda você a diferenciar os sites do PJe de forma rápida e fácil. Com essa extensão, você pode ver o domínio do site do PJe em uma pequena barra no topo da página, com uma cor única para cada domínio. Assim, você pode navegar pelos sites do PJe sem se confundir ou perder tempo.",
+  "description": "PJe Identificador é uma extensão para o Chrome que ajuda você a diferenciar os sites do PJe de forma rápida e fácil.",
   "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
